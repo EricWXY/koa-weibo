@@ -13,6 +13,7 @@ const users = require('./routes/users')
 
 const { SESSION_KEY } = require('./conf/common')
 const { REDIS_CONF } = require('./conf/db')
+const { isTest } = require('./utils/env')
 
 // error handler
 onerror(app)
@@ -23,7 +24,8 @@ app.use(bodyparser({
   enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
-app.use(logger())
+if (!isTest)//单元测试时不打印log
+  app.use(logger())
 app.use(require('koa-static')(__dirname + '/public'))
 
 app.use(views(__dirname + '/views', {
@@ -46,12 +48,13 @@ app.use(session({
 }))
 
 // logger
-app.use(async (ctx, next) => {
-  const start = new Date()
-  await next()
-  const ms = new Date() - start
-  console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
-})
+if (!isTest) //单元测试时不打印log
+  app.use(async (ctx, next) => {
+    const start = new Date()
+    await next()
+    const ms = new Date() - start
+    console.log(`${ctx.method} ${ctx.url} - ${ms}ms`)
+  })
 
 // routes
 app.use(index.routes(), index.allowedMethods())
@@ -60,6 +63,6 @@ app.use(users.routes(), users.allowedMethods())
 // error-handling
 app.on('error', (err, ctx) => {
   console.error('server error', err, ctx)
-});
+})
 
 module.exports = app
