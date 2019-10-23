@@ -6,8 +6,13 @@ router.get('/', async (ctx, next) => {
   })
 })
 
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
+router.post('/post_test', async (ctx, next) => {
+  let data = ctx.request.body
+  ctx.body = {
+    status:200,
+    msg:'success',
+    req:data
+  }
 })
 
 router.get('/json', async (ctx, next) => {
