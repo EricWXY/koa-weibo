@@ -1,4 +1,5 @@
 /**
+ * @module my/redis
  * @description 链接 redistribution的方法 get set
  * @author EricWXY
  */
