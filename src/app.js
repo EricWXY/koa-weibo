@@ -7,14 +7,10 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
-
-// router
-const index = require('./routes/index')
-const usersViewRouter = require('./routes/view/users')
-const errorViewRouter = require('./routes/view/error')
+const { router, routers } = require('./routes/index')
 
 // config
-const { SESSION_KEY } = require('../conf/common')
+const { SESSION_KEY } = require('../conf/constant')
 const { REDIS_CONF } = require('../conf/db')
 const { isTest, isProd } = require('./utils/env')
 
@@ -34,7 +30,7 @@ app.use(bodyparser({
   enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
-app.use(require('koa-static')('../public'))
+app.use(require('koa-static')(__dirname + '/public'))
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
 }))
@@ -55,9 +51,11 @@ app.use(session({
 }))
 
 // routes
-app.use(index.routes(), index.allowedMethods())
-app.use(usersViewRouter.routes(), usersViewRouter.allowedMethods())
-app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())//404路由一定要注册在最下面
+app.use(router.routes(), router.allowedMethods())
+routers.map(item => {
+  app.use(item.routes(), item.allowedMethods())
+})
+
 
 // error-handling
 app.on('error', (err, ctx) => {

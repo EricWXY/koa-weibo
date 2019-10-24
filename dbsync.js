@@ -3,8 +3,8 @@
  * @author EricWXY
  */
 
-const { seq } = require('./src/utils/seq')
-require('./src/model')
+const { seq } = require('./src/models/_seq')
+require('./src/models')
 
 // 测试连接
 seq.authenticate().then(() => {

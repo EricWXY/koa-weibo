@@ -1,5 +1,9 @@
 const router = require('koa-router')()
 
+const userAPIRouter = require('./api/user')
+const userViewRouter = require('./view/user')
+const errorViewRouter = require('./view/error')
+
 router.get('/', async ctx => {
   await ctx.render('index', {
     title: 'Hello Koa 2!'
@@ -33,4 +37,10 @@ router.get('/session_test', async ctx => {
   }
 })
 
-module.exports = router
+const routers = [
+  userAPIRouter,
+  userViewRouter,
+  errorViewRouter,//404 路由一定要放在最下面
+]
+
+module.exports = { router, routers }

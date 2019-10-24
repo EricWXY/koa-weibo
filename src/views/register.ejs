@@ -52,14 +52,15 @@
                     var userName = $inputUserName.val()
                     ajax.post('/api/user/isExist', {
                         userName
-                    }, function(err, data) {
+                    }, function(err) {
                         $spanUserNameInfo.show()
-                        if (err) {
-                            $spanUserNameInfo.text('用户名可用')
-                            isUserNameExist = false
+                        console.log(err)
+                        if (err.errno==10003) {
+                           $spanUserNameInfo.text('用户名可用')
+                           isUserNameExist = false
                         } else {
-                            $spanUserNameInfo.text('用户名已存在！')
-                            isUserNameExist = true
+                           $spanUserNameInfo.text(err.message)
+                           isUserNameExist = true
                         }
                     })
                 }, 500)

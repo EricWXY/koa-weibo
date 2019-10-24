@@ -3,7 +3,7 @@
  * @author EricWXY
  */
 
-const { seq, STRING, DECIMAL } = require('../utils/seq')
+const { seq, STRING, DECIMAL } = require('./_seq')
 
 const User = seq.define('user', {
   userName: {
