@@ -10,7 +10,7 @@ const redisStore = require('koa-redis')
 const { router, routers } = require('./routes/index')
 
 // config
-const { SESSION_KEY } = require('../conf/constant')
+const { SESSION_KEY } = require('../conf/keys')
 const { REDIS_CONF } = require('../conf/db')
 const { isTest, isProd } = require('./utils/env')
 
