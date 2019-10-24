@@ -3,7 +3,8 @@
  * @author EricWXY
  */
 
-const seq = require('./seq')
+const { seq } = require('./src/utils/seq')
+require('./src/model')
 
 // 测试连接
 seq.authenticate().then(() => {
