@@ -11,6 +11,7 @@
     "test": "cross-env NODE_ENV=test jest --runInBand --forceExit --colors"
   },
   "dependencies": {
+    "ajv": "^6.10.2",
     "debug": "^4.1.1",
     "ejs": "^2.7.1",
     "koa": "^2.7.0",
@@ -37,7 +38,7 @@
     "pre-commit": "^1.2.2",
     "supertest": "^4.0.2"
   },
-  "pre-commit":[
+  "pre-commit": [
     "lint"
   ]
 }
