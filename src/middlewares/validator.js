@@ -15,7 +15,7 @@ function genValidator(validateFun) {
   async function validator(ctx, next) {
     let data = ctx.request.body
     let error = validateFun(data)
-    console.log(error)
+    // console.log(error)
     if (error) {
       //验证失败
       ctx.body = new ErrorModel(jsonSchemaFileInfo)
