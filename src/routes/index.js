@@ -1,10 +1,11 @@
 const router = require('koa-router')()
+const { loginRedirect, loginCheck } = require('../middlewares/auth')
 
 const userAPIRouter = require('./api/user')
 const userViewRouter = require('./view/user')
 const errorViewRouter = require('./view/error')
 
-router.get('/', async ctx => {
+router.get('/', loginRedirect, async ctx => {
   await ctx.render('index', {
     title: 'Hello Koa 2!'
   })
@@ -19,7 +20,7 @@ router.post('/post_test', async ctx => {
   }
 })
 
-router.get('/json', async ctx => {
+router.get('/json', loginCheck, async ctx => {
   ctx.body = {
     title: 'koa2 json'
   }
