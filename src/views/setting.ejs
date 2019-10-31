@@ -72,7 +72,7 @@ $(function() {
         var file = $filePicture[0].files[0]
         ajax.upload('/api/utils/upload', file, function(err, data) {
             if (err) {
-                alert(err)
+                alert(err.message)
                 return
             }
             // 成功
@@ -95,7 +95,7 @@ $(function() {
             picture
         }, function(err, data) {
             if (err) {
-                alert(err)
+                alert(err.message)
                 return
             }
             alert('修改成功')
@@ -126,7 +126,7 @@ $(function() {
             newPassword: newPassword
         }, function(err, data) {
             if (err) {
-                alert(err)
+                alert(err.message)
                 return
             }
             alert('修改成功')

@@ -45,9 +45,7 @@ app.use(session({
     httpOnly: true,             //很关键的一个配置（只允许服务端修改cookie）
     maxAge: 24 * 60 * 60 * 1000 //过期时间（ms)
   },
-  store: redisStore({
-    all: `${REDIS_CONF.host}:${REDIS_CONF.port}`
-  })
+  store: redisStore()
 }))
 
 // routes
