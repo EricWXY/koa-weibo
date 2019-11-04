@@ -1,5 +1,7 @@
 const Koa = require('koa')
+const path = require('path')
 const app = new Koa()
+const koaStatic = require('koa-static')
 const views = require('koa-views')
 const json = require('koa-json')
 const onerror = require('koa-onerror')
@@ -11,7 +13,7 @@ const { router, routers } = require('./routes/index')
 
 // config
 const { SESSION_KEY } = require('../conf/keys')
-const { REDIS_CONF } = require('../conf/db')
+// const { REDIS_CONF } = require('../conf/db')
 const { isTest, isProd } = require('./utils/env')
 
 // error handler
@@ -30,7 +32,8 @@ app.use(bodyparser({
   enableTypes: ['json', 'form', 'text']
 }))
 app.use(json())
-app.use(require('koa-static')(__dirname + '/public'))
+app.use(koaStatic(path.join(__dirname,'..','public')))
+app.use(koaStatic(path.join(__dirname,'..','uploads')))
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
 }))

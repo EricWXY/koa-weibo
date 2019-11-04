@@ -2,6 +2,7 @@ const router = require('koa-router')()
 const { loginRedirect, loginCheck } = require('../middlewares/auth')
 
 const userAPIRouter = require('./api/user')
+const utilsAPIRouter = require('./api/utils')
 const userViewRouter = require('./view/user')
 const errorViewRouter = require('./view/error')
 
@@ -40,6 +41,7 @@ router.get('/session_test', async ctx => {
 
 const routers = [
   userAPIRouter,
+  utilsAPIRouter,
   userViewRouter,
   errorViewRouter,//404 路由一定要放在最下面
 ]
