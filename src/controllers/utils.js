@@ -32,7 +32,7 @@ async function saveFile({ name, type, size, filePath }) {
   }
 
   //移动文件
-  let fileName = Date.now() + '.' + name//防止重名
+  let fileName = Date.now() + '.' + name //防止重名
   let distFilePath = path.join(DIST_FOLDER_PATH, fileName) //文件移动目的地
   await fse.move(filePath, distFilePath)
 
