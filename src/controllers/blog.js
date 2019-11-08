@@ -3,6 +3,7 @@
  * @author EricWXY
  */
 
+const xss = require('xss')
 const { createBlog } = require('../services/blog')
 const { SuccessModel, ErrorModel } = require('./_models/ResModel')
 const { createBlogFailInfo } = require('./_models/ErrorInfo')
@@ -15,7 +16,7 @@ async function create({ userId, content, image }) {
   try {
     let blog = await createBlog({
       userId,
-      content:encodeURIComponent(content),
+      content:encodeURIComponent(xss(content)),
       image,
     })
     return new SuccessModel(blog)
