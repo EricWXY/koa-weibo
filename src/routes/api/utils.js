@@ -13,7 +13,11 @@ router.prefix('/api/utils')
 
 router.post('/upload', loginCheck, koaForm(), async ctx => {
   let file = ctx.req.files['file']
+
+  if (!file)
+    return
   let { size, path, name, type } = file
+  
   ctx.body = await saveFile({
     name,
     type,

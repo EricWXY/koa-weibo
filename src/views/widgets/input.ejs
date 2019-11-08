@@ -28,7 +28,7 @@ $(function () {
         $spanImgName.text(file.name)
         ajax.upload('/api/utils/upload', file, function(err, data) {
             if (err) {
-                alert(err)
+                alert(err.message)
                 return
             }
             // 成功
@@ -61,7 +61,7 @@ $(function () {
         }, function (err) {
             if (err) {
                 // 失败
-                alert(err)
+                alert(err.message)
                 return
             }
             // 成功
@@ -76,10 +76,10 @@ $(function () {
     })
 
     // @ 功能
-    $textContent.atwho({
-        at: '@',
-        data: '/api/user/getAtList'
-        // data: ['Peter', 'Tom', 'Anne']
-    })
+    // $textContent.atwho({
+    //     at: '@',
+    //     data: '/api/user/getAtList'
+    //     // data: ['Peter', 'Tom', 'Anne']
+    // })
 })
 </script>

@@ -9,7 +9,7 @@ const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
-const { router, routers } = require('./routes/index')
+const { routers } = require('./routes/index')
 
 // config
 const { SESSION_KEY } = require('../conf/keys')
@@ -52,7 +52,6 @@ app.use(session({
 }))
 
 // routes
-app.use(router.routes(), router.allowedMethods())
 routers.map(item => {
   app.use(item.routes(), item.allowedMethods())
 })
