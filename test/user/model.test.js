@@ -3,7 +3,7 @@
  * @author EricWXY
  */
 
-const { User } = require('../../src/models/index')
+const { User } = require('../../src/models')
 
 test('User 模型的各个属性，符合预取', () => {
   // build 会构建一个内存的 User 实例，但不会提交到数据库
