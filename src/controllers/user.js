@@ -65,7 +65,10 @@ async function login(ctx, userName, password) {
     //登录失败
     return new ErrorModel(loginFailInfo)
   }
+
   //登录成功
+  userInfo.city = decodeURIComponent(userInfo.city)
+  userInfo.nickName = decodeURIComponent(userInfo.nickName)
   ctx.session.userInfo = userInfo
   return new SuccessModel()
 }
@@ -96,8 +99,8 @@ async function changeInfo(ctx, { nickName, city, picture }) {
   if (!nickName)
     nickName = userName
   let res = await updateUser({
-    newNickName: nickName,
-    newCity: city,
+    newNickName: encodeURIComponent(nickName),
+    newCity: encodeURIComponent(city),
     newPicture: picture,
   }, { userName })
   if (res) {
