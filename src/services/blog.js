@@ -25,7 +25,7 @@ async function createBlog({ userId, content, image }) {
  * @param {Number} pageIndex 页索引
  * @param {Number} pageSize 页大小
  */
-async function getBlogListByUser(userName, pageIndex = 0, pageSize = 10) {
+async function getBlogListByUser({userName, pageIndex = 0, pageSize = 10}) {
   // 拼接查询条件
   let userWhereOpts = {}
   if (userName) {

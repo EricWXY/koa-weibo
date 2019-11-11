@@ -13,7 +13,7 @@ const { SuccessModel } = require('./_models/ResModel')
  * @param {Number} pageIndex 当前页面
  */
 async function getProfileBlogList(userName, pageIndex = 0) {
-  let result = await getBlogListByUser(userName, pageIndex, DEFAULT_PAGE_SIZE)
+  let result = await getBlogListByUser({ userName, pageIndex, pageSize: DEFAULT_PAGE_SIZE })
   let { blogList, count } = result
   return new SuccessModel({
     isEmpty: blogList.length === 0,
