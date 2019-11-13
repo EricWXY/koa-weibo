@@ -29,6 +29,7 @@ router.get('/profile/:userName', loginRedirect, async ctx => {
   let curUserInfo
   let { userName: curUserName } = ctx.params
   let isMe = myUserName === curUserName
+  console.log(curUserName)
 
   if (isMe) {
     // 是当前登录用户
@@ -36,7 +37,8 @@ router.get('/profile/:userName', loginRedirect, async ctx => {
   } else {
     // 不是当前登录用户
     let existResult = await isExist(curUserName)
-    if (existResult.errno !== 0) {
+    console.log(existResult)
+    if (existResult.errno === 10001) {
       // 用户名不存在
       return
     }
@@ -51,15 +53,19 @@ router.get('/profile/:userName', loginRedirect, async ctx => {
   let fansResult = await getFans(curUserInfo.id)
   let { count, fansList } = fansResult.data
 
+  // 我是否关注了此人
+  let amIFollowed = fansList.some(item => item.userName == myUserName)
+
   await ctx.render('profile', {
     blogData,
     userData: {
-      isMe: true,
-      userInfo: ctx.session.userInfo,
+      isMe,
+      userInfo: curUserInfo,
       fansData: {
         count,
         list: fansList,
-      }
+      },
+      amIFollowed,
     }
   })
 })

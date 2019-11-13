@@ -3,7 +3,7 @@
  * @author EricWXY
  */
 
-const USER_DEFAULT_PICTURE = 'https://dwz.cn/rnTnftZs'
+const USER_DEFAULT_PICTURE = '/images/default_user_picture.jpg'
 const DEFAULT_PAGE_SIZE = 5
 
 module.exports = {

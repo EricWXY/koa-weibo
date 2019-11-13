@@ -53,12 +53,13 @@
                     ajax.post('/api/user/isExist', {
                         userName
                     }, function(err) {
+                        console.log(err)
                         $spanUserNameInfo.show()
-                        if (err.errno==10003) {
+                        if (err.errno!=0) {
                            $spanUserNameInfo.text('用户名可用')
                            isUserNameExist = false
                         } else {
-                           $spanUserNameInfo.text(err.message)
+                           $spanUserNameInfo.text('用户名已存在')
                            isUserNameExist = true
                         }
                     })

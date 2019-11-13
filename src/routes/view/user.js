@@ -30,6 +30,7 @@ router.get('/register', async ctx => {
 })
 
 router.get('/setting', loginRedirect, async ctx => {
+  ctx.session.userInfo.city = ctx.session.userInfo.city == 'null' ? '' : ctx.session.userInfo.city
   await ctx.render('setting', ctx.session.userInfo)
 })
 
