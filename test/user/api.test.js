@@ -42,7 +42,7 @@ test('查询注册的用户名，应该存在', async () => {
     .post('/api/user/isExist')
     .send({ userName })
 
-  expect(res.body.errno).toBe(10001)
+  expect(res.body.errno).toBe(0)
 })
 
 // json schema 校验
@@ -107,7 +107,7 @@ test('删除用户，应该成功', async () => {
 })
 
 // 退出登录
-test('推出登录应该成功', async () => {
+test('退出登录应该成功', async () => {
   let res = await server
     .post('/api/user/logout')
     .set('cookie',COOKIE)
