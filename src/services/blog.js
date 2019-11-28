@@ -3,8 +3,8 @@
  * @author EricWXY
  */
 
-const { Blog, User } = require('../models')
-const { formatUser } = require('./_format')
+const { Blog, User, UserRelation } = require('../models')
+const { formatUser, formatBlog } = require('./_format')
 
 /**
  * @description 创建微博
@@ -25,7 +25,7 @@ async function createBlog({ userId, content, image }) {
  * @param {Number} pageIndex 页索引
  * @param {Number} pageSize 页大小
  */
-async function getBlogListByUser({userName, pageIndex = 0, pageSize = 10}) {
+async function getBlogListByUser({ userName, pageIndex = 0, pageSize = 10 }) {
   // 拼接查询条件
   let userWhereOpts = {}
   if (userName) {
@@ -66,7 +66,49 @@ async function getBlogListByUser({userName, pageIndex = 0, pageSize = 10}) {
   }
 }
 
+/**
+ * @description 获取关注者的微博列表（首页）
+ * @param {Number} userId 用户Id
+ * @param {Number} pageIndex 页数
+ * @param {Number} pageSize 页大小
+ */
+async function getFollowerBlogList({ userId, pageIndex = 0, pageSize = 10 }) {
+  let result = await Blog.findAndCountAll({
+    limit: pageSize,
+    offset: pageSize * pageIndex,
+    order: [
+      ['id', 'desc']
+    ],
+    include: [
+      {
+        model: User,
+        attributes: ['userName', 'nickName', 'picture']
+      },
+      {
+        model: UserRelation,
+        attributes: ['userId', 'followerId'],
+        where: { userId }
+      }
+    ]
+  })
+
+  // 格式化数据
+  let blogList = result.rows.map(row => row.dataValues)
+  blogList = formatBlog(blogList)
+  blogList = blogList.map(item => {
+    item.user = formatUser(item.user.dataValues)
+    return item
+  })
+
+  return {
+    count:result.count,
+    blogList,
+  }
+
+}
+
 module.exports = {
   createBlog,
   getBlogListByUser,
+  getFollowerBlogList,
 }
