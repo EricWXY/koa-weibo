@@ -11,6 +11,11 @@ Blog.belongsTo(User, {
   foreignKey: 'userId'
 })
 
+Blog.belongsTo(UserRelation, {
+  foreignKey: 'userId',
+  targetKey: 'followerId'
+})
+
 UserRelation.belongsTo(User, {
   foreignKey: 'followerId'
 })

@@ -5,6 +5,7 @@
 
 const User = require('../models/User')
 const { formatUser } = require('./_format')
+const { addFollower } = require('./relation')
 
 /**
  * @description 获取用户信息
@@ -48,7 +49,13 @@ async function createUser(userInfo) {
     nickName: nickName ? nickName : userName,
     gender,
   })
-  return result.dataValues
+
+  let data = result.dataValues
+
+  // 自己关注自己 (方便首页获取数据)
+  addFollower(data.id, data.id)
+
+  return data
 }
 
 /**
